@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Scientist Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Fira+Code&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --secondary: #1e293b;
+            --background: #ffffff;
+            --text: #334155;
+            --accent: #f59e0b;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            background: var(--background);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--secondary);
+        }
+
+        code {
+            font-family: 'Fira Code', monospace;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--secondary);
+        }
+
+        /* HERO SECTION */
+        #hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            text-align: center;
+            padding: 120px 0;
+            opacity: 1;
+            transform: none;
+        }
+
+        .profile-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            border: 5px solid white;
+            object-fit: cover;
+        }
+
+        #hero h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        #hero h2 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 40px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #d97706;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: #f1f5f9;
+            transform: translateY(-2px);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background: white;
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* ABOUT SECTION */
+        #about {
+            background: #f8fafc;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .about-summary {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .skills-list h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .skills-list ul {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .skills-list li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .skills-list li:before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+
+        /* PROJECTS SECTION */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .project-content {
+            padding: 20px;
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .project-description {
+            font-size: 0.95rem;
+            color: var(--text);
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .tag {
+            background: #e0f2fe;
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-demo {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-demo:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-github {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-github:hover {
+            background: #0f172a;
+        }
+
+        /* EXPERIENCE SECTION */
+        #experience {
+            background: #f8fafc;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 50px;
+        }
+
+        .timeline:before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--primary);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 50px;
+        }
+
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: -36px;
+            top: 0;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px var(--primary);
+        }
+
+        .timeline-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .timeline-company {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .timeline-duration {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .timeline-content ul {
+            list-style: none;
+        }
+
+        .timeline-content li {
+            padding: 5px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .timeline-content li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-size: 1.5rem;
+        }
+
+        /* EDUCATION & CERTIFICATIONS SECTION */
+        .education-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .education-item {
+            margin-bottom: 30px;
+        }
+
+        .education-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+
+        .education-institution {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .education-year {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .certifications-list {
+            list-style: none;
+        }
+
+        .certifications-list li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+            font-size: 1.05rem;
+        }
+
+        .certifications-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        /* CONTACT SECTION */
+        #contact {
+            background: #f8fafc;
+        }
+
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 5px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background: #1d4ed8;
+        }
+
+        .contact-info {
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .contact-info p {
+            margin: 10px 0;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--secondary);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            margin-bottom: 20px;
+        }
+
+        .back-to-top {
+            display: inline-block;
+            padding: 10px 25px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .back-to-top:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 1023px) {
+            .about-content,
+            .education-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            #hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            #hero {
+                padding: 80px 0;
+            }
+
+            #hero h1 {
+                font-size: 2rem;
+            }
+
+            #hero h2 {
+                font-size: 1.2rem;
+            }
+
+            section {
+                padding: 50px 0;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .timeline {
+                padding-left: 30px;
+            }
+
+            .timeline:before {
+                left: 10px;
+            }
+
+            .timeline-item:before {
+                left: -26px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HERO SECTION -->
+    <section id="hero">
+        <div class="container">
+            <img id="profile-photo" class="profile-photo" src="" alt="Profile Photo">
+            <h1 id="hero-name"></h1>
+            <h2 id="hero-tagline"></h2>
+            <div class="cta-buttons">
+                <a href="#projects" class="btn btn-primary">View Projects</a>
+                <a href="#contact" class="btn btn-secondary">Download Resume</a>
+            </div>
+            <div class="social-icons" id="hero-social"></div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-summary">
+                    <p id="about-summary"></p>
+                </div>
+                <div class="skills-list">
+                    <div>
+                        <h3>Data Engineering Skills</h3>
+                        <ul id="skills-engineering"></ul>
+                    </div>
+                    <div>
+                        <h3>Data Science Skills</h3>
+                        <ul id="skills-datascience"></ul>
+                    </div>
+                    <div>
+                        <h3>Tools & Technologies</h3>
+                        <ul id="skills-tools"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS SECTION -->
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="projects-grid" id="projects-grid"></div>
+        </div>
+    </section>
+
+    <!-- EXPERIENCE SECTION -->
+    <section id="experience">
+        <div class="container">
+            <h2 class="section-title">Professional Experience</h2>
+            <div class="timeline" id="experience-timeline"></div>
+        </div>
+    </section>
+
+    <!-- EDUCATION & CERTIFICATIONS SECTION -->
+    <section id="education">
+        <div class="container">
+            <h2 class="section-title">Education & Certifications</h2>
+            <div class="education-grid">
+                <div>
+                    <h3 style="margin-bottom: 30px; color: var(--primary);">Education</h3>
+                    <div id="education-list"></div>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 30px; color: var(--primary);">Certifications</h3>
+                    <ul class="certifications-list" id="certifications-list"></ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <form class="contact-form" id="contact-form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">Send Message</button>
+                </form>
+                <div class="contact-info" id="contact-info"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="social-icons" id="footer-social"></div>
+                <p id="footer-copyright"></p>
+            </div>
+            <a href="#hero" class="back-to-top">Back to Top</a>
+        </div>
+    </footer>
+
+    <!-- Load data.js first -->
+    <script src="data.js"></script>
+    
+    <!-- Main JavaScript -->
+    <script>
+        // Populate Hero Section
+        document.getElementById('hero-name').textContent = portfolioData.hero.name;
+        document.getElementById('hero-tagline').textContent = portfolioData.hero.tagline;
+        document.getElementById('profile-photo').src = portfolioData.hero.profileImage;
+
+        // Social Icons
+        const socialIconsHTML = `
+            ${portfolioData.hero.social.github ? `<a href="${portfolioData.hero.social.github}" class="social-icon" target="_blank">G</a>` : ''}
+            ${portfolioData.hero.social.linkedin ? `<a href="${portfolioData.hero.social.linkedin}" class="social-icon" target="_blank">L</a>` : ''}
+            ${portfolioData.hero.social.kaggle ? `<a href="${portfolioData.hero.social.kaggle}" class="social-icon" target="_blank">K</a>` : ''}
+            ${portfolioData.hero.social.email ? `<a href="mailto:${portfolioData.hero.social.email}" class="social-icon">@</a>` : ''}
+        `;
+        document.getElementById('hero-social').innerHTML = socialIconsHTML;
+        document.getElementById('footer-social').innerHTML = socialIconsHTML;
+
+        // Populate About Section
+        document.getElementById('about-summary').textContent = portfolioData.about.summary;
+        
+        document.getElementById('skills-engineering').innerHTML = portfolioData.about.skills.engineering
+            .map(skill => `<li>${skill}</li>`).join('');
+        document.getElementById('skills-datascience').innerHTML = portfolioData.about.skills.datascience
+            .map(skill => `<li>${skill}</li>`).join('');
+        document.getElementById('skills-tools').innerHTML = portfolioData.about.skills.tools
+            .map(skill => `<li>${skill}</li>`).join('');
+
+        // Populate Projects Section
+        document.getElementById('projects-grid').innerHTML = portfolioData.projects.map(project => `
+            <div class="project-card">
+                <img src="${project.image}" alt="${project.title}" class="project-image">
+                <div class="project-content">
+                    <h3 class="project-title">${project.title}</h3>
+                    <p class="project-description">${project.description}</p>
+                    <div class="project-tags">
+                        ${project.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                    </div>
+                    <div class="project-links">
+                        ${project.demo ? `<a href="${project.demo}" class="btn-small btn-demo" target="_blank">Live Demo</a>` : ''}
+                        ${project.github ? `<a href="${project.github}" class="btn-small btn-github" target="_blank">GitHub</a>` : ''}
+                    </div>
+                </div>
+            </div>
+        `).join('');
+
+        // Populate Experience Section
+        document.getElementById('experience-timeline').innerHTML = portfolioData.experience.map(exp => `
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>${exp.title}</h3>
+                    <div class="timeline-company">${exp.company}</div>
+                    <div class="timeline-duration">${exp.duration}</div>
+                    <ul>
+                        ${exp.responsibilities.map(resp => `<li>${resp}</li>`).join('')}
+                    </ul>
+                </div>
+            </div>
+        `).join('');
+
+        // Populate Education Section
+        document.getElementById('education-list').innerHTML = portfolioData.education.map(edu => `
+            <div class="education-item">
+                <h3>${edu.degree}</h3>
+                <div class="education-institution">${edu.institution}</div>
+                <div class="education-year">${edu.year}</div>
+            </div>
+        `).join('');
+
+        // Populate Certifications
+        document.getElementById('certifications-list').innerHTML = portfolioData.certifications
+            .map(cert => `<li>${cert}</li>`).join('');
+
+        // Populate Contact Info
+        document.getElementById('contact-info').innerHTML = `
+            <p><strong>Email:</strong> ${portfolioData.contact.email}</p>
+            <p><strong>Phone:</strong> ${portfolioData.contact.phone}</p>
+            <p><strong>Location:</strong> ${portfolioData.contact.location}</p>
+        `;
+
+        // Populate Footer
+        document.getElementById('footer-copyright').textContent = portfolioData.footer.copyright;
+
+        // Contact Form Handler (mailto fallback for GitHub Pages)
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            const mailtoLink = `mailto:${portfolioData.contact.email}?subject=Portfolio Contact from ${name}&body=${encodeURIComponent(message)}%0D%0A%0D%0AFrom: ${name} (${email})`;
+            window.location.href = mailtoLink;
+        });
+
+        // Scroll Animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
