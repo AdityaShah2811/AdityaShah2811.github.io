@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Test</title>
+</head>
+<body>
+    <h1>Portfolio Data Test</h1>
+    <div id="test-output"></div>
+
+    <script src="data.js"></script>
+    <script>
+        const output = document.getElementById('test-output');
+        
+        try {
+            // Test if portfolioData is loaded
+            if (typeof portfolioData === 'undefined') {
+                output.innerHTML = '<p style="color: red;">ERROR: portfolioData is not defined. data.js not loaded properly.</p>';
+            } else {
+                output.innerHTML = `
+                    <p style="color: green;">✓ portfolioData loaded successfully!</p>
+                    <h2>Data Check:</h2>
+                    <ul>
+                        <li>Name: ${portfolioData.personal.name}</li>
+                        <li>Email: ${portfolioData.personal.email}</li>
+                        <li>GitHub: ${portfolioData.personal.githubUsername}</li>
+                        <li>Projects: ${portfolioData.projects.length}</li>
+                        <li>Experience: ${portfolioData.experience.length}</li>
+                        <li>Skills Categories: ${Object.keys(portfolioData.skills).length}</li>
+                    </ul>
+                    <p style="color: green;">All data loaded correctly! ✓</p>
+                `;
+            }
+        } catch (error) {
+            output.innerHTML = `<p style="color: red;">ERROR: ${error.message}</p>`;
+        }
+    </script>
+</body>
+</html>

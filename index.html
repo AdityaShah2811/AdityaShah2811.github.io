@@ -9,6 +9,9 @@
     <meta property="og:title" content="Aditya Shah - Data Science Portfolio">
     <meta property="og:description" content="Data Science portfolio with ML projects and analytics">
     
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -993,10 +996,10 @@
                     <span>📧</span>
                     <span>Send Email</span>
                 </a>
-                <button onclick="openCalendlyPopup()" class="contact-btn contact-btn-secondary">
+                <a href="#" id="calendly-btn" class="contact-btn contact-btn-secondary">
                     <span>📅</span>
                     <span>Schedule 15-min Call</span>
-                </button>
+                </a>
             </div>
             <div class="contact-details">
                 <div class="contact-detail">
@@ -1031,7 +1034,7 @@
     </footer>
 
     <!-- Load data.js first -->
-    <script src="data.js"></script>
+    <script src="./data.js"></script>
     
     <!-- Main JavaScript -->
     <script>
@@ -1147,14 +1150,36 @@
         // GitHub Profile Link
         document.getElementById('github-profile-link').href = portfolioData.social.github;
 
-        // Calendly Integration
+        // Calendly Integration - Check if URL is set up
+        const calendlyBtn = document.getElementById('calendly-btn');
+        if (portfolioData.personal.calendlyURL && portfolioData.personal.calendlyURL !== 'https://calendly.com/PLACEHOLDER/15min') {
+            // Real Calendly URL - enable popup
+            calendlyBtn.onclick = function(e) {
+                e.preventDefault();
+                openCalendlyPopup();
+            };
+        } else {
+            // No Calendly set up - redirect to email
+            calendlyBtn.href = portfolioData.social.email;
+            calendlyBtn.onclick = function(e) {
+                // Let the email link work normally
+            };
+        }
+
+        // Calendly Popup Function
         function openCalendlyPopup() {
+            // Check if Calendly URL is set up
+            if (portfolioData.personal.calendlyURL === 'https://calendly.com/PLACEHOLDER/15min') {
+                alert('📅 Calendly scheduling coming soon!\n\nFor now, please email me at: ' + portfolioData.personal.email);
+                return false;
+            }
+            
             if (typeof Calendly !== 'undefined') {
                 Calendly.initPopupWidget({
                     url: portfolioData.personal.calendlyURL
                 });
             } else {
-                alert('Please update your Calendly URL in data.js');
+                alert('Calendly is loading. Please try again in a moment.');
             }
             return false;
         }

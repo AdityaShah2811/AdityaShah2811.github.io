@@ -7,11 +7,11 @@ const portfolioData = {
     name: "Aditya Pranav Shah",
     title: "Data Science Graduate Student | Aspiring Data Scientist",
     tagline: "Transforming data into actionable insights through Python, SQL, and Machine Learning",
-    photo: "https://via.placeholder.com/150", // Replace with actual photo URL
+    photo: "./images/profile.jpg", // Add your photo to images/ folder
     location: "Boston, MA",
     email: "shah.aditya@northeastern.edu",
     phone: "+1 (857) 234-7211",
-    resumeURL: "./Aditya_Shah_DS_Resume.pdf",
+    resumeURL: "./resume/Aditya_Shah_DS_Resume.pdf", // Add PDF to resume/ folder
     calendlyURL: "https://calendly.com/PLACEHOLDER/15min", // Update with your Calendly link
     githubUsername: "AdityaShah2811"
   },
@@ -68,7 +68,7 @@ const portfolioData = {
     {
       title: "Real-time IoT Data Pipeline & Analytics",
       description: "Built data pipeline processing sensor data from 100+ devices. Created Python dashboard analyzing 50K+ daily records. Improved system efficiency by 22% through automated anomaly detection.",
-      image: "https://via.placeholder.com/300x200/2563eb/ffffff?text=IoT+Pipeline",
+      image: "./images/projects/iot-pipeline.jpg", // Add screenshot to images/projects/
       tech: ["Python", "MongoDB", "Pandas", "Plotly"],
       github: "https://github.com/AdityaShah2811/iot-pipeline",
       demo: null,
@@ -77,7 +77,7 @@ const portfolioData = {
     {
       title: "Customer Churn Prediction",
       description: "Machine learning model predicting customer churn with 87% accuracy. Analyzed 10K+ customer records using feature engineering and XGBoost classifier.",
-      image: "https://via.placeholder.com/300x200/10b981/ffffff?text=ML+Model",
+      image: "./images/projects/churn-prediction.jpg", // Add screenshot to images/projects/
       tech: ["Python", "Scikit-learn", "Pandas", "Seaborn"],
       github: "#",
       demo: null,
@@ -86,7 +86,7 @@ const portfolioData = {
     {
       title: "Sales Data Analysis & Dashboard",
       description: "Interactive Tableau dashboard analyzing retail sales data. Identified 3 key trends leading to 15% revenue optimization recommendations.",
-      image: "https://via.placeholder.com/300x200/f59e0b/ffffff?text=Dashboard",
+      image: "./images/projects/sales-dashboard.jpg", // Add screenshot to images/projects/
       tech: ["Python", "SQL", "Tableau", "Pandas"],
       github: "#",
       demo: null,
@@ -95,7 +95,7 @@ const portfolioData = {
     {
       title: "Sentiment Analysis on Reviews",
       description: "NLP model analyzing 50K+ product reviews. Achieved 82% accuracy in sentiment classification using LSTM neural networks.",
-      image: "https://via.placeholder.com/300x200/8b5cf6/ffffff?text=NLP+Model",
+      image: "./images/projects/sentiment-analysis.jpg", // Add screenshot to images/projects/
       tech: ["Python", "NLTK", "TensorFlow", "Streamlit"],
       github: "#",
       demo: null,
@@ -104,7 +104,7 @@ const portfolioData = {
     {
       title: "More Projects Coming",
       description: "Currently working on additional data science projects. Check back soon for updates!",
-      image: "https://via.placeholder.com/300x200/64748b/ffffff?text=Coming+Soon",
+      image: "./images/projects/project-5.jpg", // Add screenshot to images/projects/
       tech: ["Python", "ML", "Data Science"],
       github: "#",
       demo: null,
@@ -113,7 +113,7 @@ const portfolioData = {
     {
       title: "More Projects Coming",
       description: "Currently working on additional data science projects. Check back soon for updates!",
-      image: "https://via.placeholder.com/300x200/64748b/ffffff?text=Coming+Soon",
+      image: "./images/projects/project-6.jpg", // Add screenshot to images/projects/
       tech: ["Python", "ML", "Data Science"],
       github: "#",
       demo: null,
