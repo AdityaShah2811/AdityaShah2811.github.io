@@ -112,12 +112,151 @@
             color: var(--text-primary);
         }
 
+        /* NAVIGATION */
+        #navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 0;
+            transition: box-shadow 0.3s ease;
+        }
+
+        #navbar.scrolled {
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
+        }
+
+        .nav-logo {
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 20px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-logo:hover {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 8px 14px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .hamburger,
+        .hamburger::before,
+        .hamburger::after {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: white;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger {
+            position: relative;
+        }
+
+        .hamburger::before,
+        .hamburger::after {
+            content: '';
+            position: absolute;
+            left: 0;
+        }
+
+        .hamburger::before {
+            top: -7px;
+        }
+
+        .hamburger::after {
+            top: 7px;
+        }
+
+        .nav-toggle.open .hamburger {
+            background: transparent;
+        }
+
+        .nav-toggle.open .hamburger::before {
+            top: 0;
+            transform: rotate(45deg);
+        }
+
+        .nav-toggle.open .hamburger::after {
+            top: 0;
+            transform: rotate(-45deg);
+        }
+
+        @media (max-width: 767px) {
+            .nav-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background: rgba(30, 41, 59, 0.98);
+                flex-direction: column;
+                padding: 20px;
+                gap: 4px;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links a {
+                padding: 12px 16px;
+                font-size: 16px;
+            }
+        }
+
         /* HERO SECTION */
         #hero {
             background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
             color: white;
             text-align: center;
-            padding: 120px 0;
+            padding: 160px 0 120px;
             opacity: 1;
             transform: none;
         }
@@ -824,7 +963,7 @@
             }
 
             #hero {
-                padding: 80px 0;
+                padding: 120px 0 80px;
             }
 
             #hero h1 {
@@ -869,6 +1008,24 @@
     </style>
 </head>
 <body>
+
+    <!-- NAVIGATION -->
+    <nav id="navbar">
+        <div class="container nav-container">
+            <a href="#hero" class="nav-logo">Aditya Shah</a>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
 
     <!-- HERO SECTION -->
     <section id="hero">
@@ -1326,13 +1483,59 @@
 
         // Back to Top Button
         const backToTop = document.getElementById('back-to-top');
-        
+
+        // Navbar scroll shadow + active link highlighting
+        const navbar = document.getElementById('navbar');
+        const navLinks = document.querySelectorAll('.nav-links a');
+        const sections = document.querySelectorAll('section[id]');
+
         window.addEventListener('scroll', () => {
+            // Back to top visibility
             if (window.scrollY > 300) {
                 backToTop.classList.remove('hidden');
             } else {
                 backToTop.classList.add('hidden');
             }
+
+            // Navbar shadow on scroll
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            // Active nav link based on scroll position
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (window.scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Mobile hamburger toggle
+        const navToggle = document.getElementById('nav-toggle');
+        const navLinksContainer = document.getElementById('nav-links');
+
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('open');
+            navLinksContainer.classList.toggle('open');
+        });
+
+        // Close mobile menu when a link is clicked
+        navLinksContainer.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navToggle.classList.remove('open');
+                navLinksContainer.classList.remove('open');
+            });
         });
     </script>
 </body>
