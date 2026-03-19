@@ -34,7 +34,10 @@ document.getElementById('hero-social').innerHTML = socialIconsHTML;
 document.getElementById('footer-social').innerHTML = socialIconsHTML;
 
 // Populate About Section
-document.getElementById('about-bio').textContent = portfolioData.about.bio;
+const bioData = portfolioData.about.bio;
+document.getElementById('about-bio').innerHTML = Array.isArray(bioData)
+    ? bioData.map(p => `<p>${p}</p>`).join('')
+    : `<p>${bioData}</p>`;
 document.getElementById('fact-location').textContent = portfolioData.about.quickFacts.location;
 document.getElementById('fact-education').textContent = portfolioData.about.quickFacts.education;
 document.getElementById('fact-status').textContent = portfolioData.about.quickFacts.status;

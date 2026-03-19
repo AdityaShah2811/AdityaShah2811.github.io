@@ -26,7 +26,12 @@ const portfolioData = {
 
   // ABOUT SECTION
   about: {
-    bio: "Software engineer turned data scientist, currently pursuing an MS in Information Systems at Northeastern University (GPA 3.8/4.0). With 2+ years of professional experience at UtopiaTech, I built data pipelines processing 100K+ daily records, developed anomaly detection systems for 10,000+ IoT devices, and reduced incident response times by 40% through data-driven automation. My background bridges software engineering and data science — I know how to build reliable systems and how to extract insight from them. Proficient in Python, SQL, and MongoDB, and actively deepening expertise in machine learning and cloud technologies. Seeking co-op and full-time opportunities where I can apply these skills to impactful, data-driven problems.",
+    bio: [
+      "Software engineer turned data scientist, currently pursuing an MS in Information Systems at Northeastern University (GPA 3.8/4.0).",
+      "With 2+ years of professional experience at UtopiaTech, I built data pipelines processing 100K+ daily records, developed anomaly detection systems for 10,000+ IoT devices, and reduced incident response times by 40% through data-driven automation.",
+      "My background bridges software engineering and data science — I know how to build reliable systems and how to extract insight from them. Proficient in Python, SQL, and MongoDB, and actively deepening expertise in machine learning and cloud technologies.",
+      "Seeking co-op and full-time opportunities where I can apply these skills to impactful, data-driven problems."
+    ],
     quickFacts: {
       location: "Boston, MA",
       education: "MS in Information Systems (2027)",

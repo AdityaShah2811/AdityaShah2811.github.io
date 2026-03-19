@@ -315,6 +315,14 @@ section.visible {
     line-height: 1.8;
 }
 
+.about-bio p {
+    margin-bottom: 16px;
+}
+
+.about-bio p:last-child {
+    margin-bottom: 0;
+}
+
 .quick-facts {
     background: white;
     padding: 30px;
