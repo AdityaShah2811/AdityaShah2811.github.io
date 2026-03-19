@@ -5,14 +5,14 @@ const portfolioData = {
   // PERSONAL INFO
   personal: {
     name: "Aditya Pranav Shah",
-    title: "Data Science Graduate Student | Aspiring Data Scientist",
-    tagline: "Transforming data into actionable insights through Python, SQL, and Machine Learning",
+    title: "Data Science Graduate Student | Python · SQL · Machine Learning",
+    tagline: "Building scalable data pipelines and ML models that turn complex datasets into decisions that matter.",
     photo: "./images/profile.jpg", // Add your photo to images/ folder
     location: "Boston, MA",
     email: "shah.aditya@northeastern.edu",
     phone: "+1 (857) 234-7211",
     resumeURL: "./resume/Aditya_Shah_DS_Resume.pdf", // Add PDF to resume/ folder
-    calendlyURL: "https://calendly.com/PLACEHOLDER/15min", // Update with your Calendly link
+    calendlyURL: "https://calendly.com/shah-aditya/30min",
     githubUsername: "AdityaShah2811"
   },
 
@@ -26,11 +26,11 @@ const portfolioData = {
 
   // ABOUT SECTION
   about: {
-    bio: "Graduate student at Northeastern University pursuing MS in Information Systems with focus on Data Science. Background in software engineering with 2+ years experience analyzing IoT device data and building data pipelines. Passionate about using data to solve real-world problems and drive business decisions. Currently seeking Data Analyst/Data Science co-op opportunities starting January 2026.",
+    bio: "Software engineer turned data scientist, currently pursuing an MS in Information Systems at Northeastern University (GPA 3.8/4.0). With 2+ years of professional experience at UtopiaTech, I built data pipelines processing 100K+ daily records, developed anomaly detection systems for 10,000+ IoT devices, and reduced incident response times by 40% through data-driven automation. My background bridges software engineering and data science — I know how to build reliable systems and how to extract insight from them. Proficient in Python, SQL, and MongoDB, and actively deepening expertise in machine learning and cloud technologies. Seeking co-op and full-time opportunities where I can apply these skills to impactful, data-driven problems.",
     quickFacts: {
       location: "Boston, MA",
       education: "MS in Information Systems (2027)",
-      status: "Seeking Co-op (Jan 2026)",
+      status: "Open to Co-op & Full-time Roles",
       availability: "Immediate"
     }
   },
@@ -129,9 +129,9 @@ const portfolioData = {
       location: "Mumbai, India",
       duration: "May 2023 - Aug 2024",
       points: [
-        "Analyzed device performance data from 10,000+ IoT users, reducing incident response time by 40%",
-        "Optimized testing workflows across 50+ device types, reducing manual testing time by 70%",
-        "Designed automated data collection pipeline processing 100K+ test records daily"
+        "Built anomaly detection system on performance data from 10,000+ IoT devices, cutting incident response time by 40%",
+        "Automated test workflows across 50+ device types using Python scripting, eliminating 70% of manual testing overhead",
+        "Architected end-to-end data collection pipeline ingesting 100K+ daily test records into MongoDB with real-time monitoring dashboards"
       ]
     },
     {
@@ -140,9 +140,9 @@ const portfolioData = {
       location: "Mumbai, India",
       duration: "Dec 2019 - May 2020",
       points: [
-        "Analyzed sensor data from 50+ IoT devices, improving data accuracy by 25%",
-        "Optimized MongoDB queries, improving database performance by 35%",
-        "Developed Python data processing scripts enabling real-time anomaly detection"
+        "Cleaned and validated sensor data streams from 50+ IoT devices, improving upstream data accuracy by 25%",
+        "Rewrote critical MongoDB queries with proper indexing strategies, reducing average query latency by 35%",
+        "Implemented real-time anomaly detection pipeline in Python, enabling proactive alerts for device malfunctions"
       ]
     }
   ],
@@ -175,6 +175,6 @@ const portfolioData = {
 
   // FOOTER
   footer: {
-    copyright: "© 2025 Aditya Pranav Shah. All rights reserved."
+    copyright: "© 2026 Aditya Pranav Shah. All rights reserved."
   }
 };
