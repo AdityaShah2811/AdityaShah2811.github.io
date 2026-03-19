@@ -240,6 +240,22 @@ const progressObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.progress-bar').forEach(bar => progressObserver.observe(bar));
 
+// Staggered animation for project cards
+const cardObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const cards = entry.target.querySelectorAll('.project-card');
+            cards.forEach((card, i) => {
+                setTimeout(() => card.classList.add('animate-in'), i * 120);
+            });
+            cardObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.1 });
+
+const projectsGrid = document.getElementById('projects-grid');
+if (projectsGrid) cardObserver.observe(projectsGrid);
+
 // Scroll Animation for Sections
 const sectionObserver = new IntersectionObserver(function(entries) {
     entries.forEach(entry => {

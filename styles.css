@@ -438,6 +438,14 @@ section.visible {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     position: relative;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.project-card.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.3s ease;
 }
 
 .project-card:hover {
