@@ -10,7 +10,7 @@ const portfolioData = {
     photo: "./images/profile-placeholder.svg", // Replace with your real photo (profile.jpg)
     location: "Boston, MA",
     email: "shah.aditya@northeastern.edu",
-    phone: "+1 (857) 234-7211",
+    // phone: "+1 (857) 234-7211", // Uncomment to display in contact section
     resumeURL: "./resume/Aditya_Shah_DS_Resume.pdf", // Add PDF to resume/ folder
     calendlyURL: "https://calendly.com/shah-aditya/30min",
     githubUsername: "AdityaShah2811"
@@ -105,15 +105,6 @@ const portfolioData = {
       github: "#",
       demo: null,
       status: "coming-soon"
-    },
-    {
-      title: "More Projects Coming",
-      description: "Currently working on additional data science projects. Check back soon for updates!",
-      image: "./images/projects/placeholder.svg",
-      tech: ["Python", "ML", "Data Science"],
-      github: "#",
-      demo: null,
-      status: "placeholder"
     },
     {
       title: "More Projects Coming",

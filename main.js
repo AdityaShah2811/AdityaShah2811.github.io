@@ -130,32 +130,13 @@ document.getElementById('footer-copyright').textContent = portfolioData.footer.c
 // GitHub Profile Link
 document.getElementById('github-profile-link').href = portfolioData.social.github;
 
-// Calendly Integration - Check if URL is set up
+// Calendly - direct link (no popup widget, avoids freezing)
 const calendlyBtn = document.getElementById('calendly-btn');
 if (portfolioData.personal.calendlyURL && portfolioData.personal.calendlyURL !== 'https://calendly.com/PLACEHOLDER/15min') {
-    calendlyBtn.onclick = function(e) {
-        e.preventDefault();
-        openCalendlyPopup();
-    };
+    calendlyBtn.href = portfolioData.personal.calendlyURL;
+    calendlyBtn.target = '_blank';
 } else {
     calendlyBtn.href = portfolioData.social.email;
-}
-
-// Calendly Popup Function
-function openCalendlyPopup() {
-    if (portfolioData.personal.calendlyURL === 'https://calendly.com/PLACEHOLDER/15min') {
-        alert('Calendly scheduling coming soon!\n\nFor now, please email me at: ' + portfolioData.personal.email);
-        return false;
-    }
-
-    if (typeof Calendly !== 'undefined') {
-        Calendly.initPopupWidget({
-            url: portfolioData.personal.calendlyURL
-        });
-    } else {
-        alert('Calendly is loading. Please try again in a moment.');
-    }
-    return false;
 }
 
 // Fetch GitHub Stats
