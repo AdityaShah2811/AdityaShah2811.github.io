@@ -61,6 +61,26 @@ section.visible {
     color: var(--text-primary);
 }
 
+/* SKIP LINK (accessibility) */
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 0 0 5px 5px;
+    z-index: 2000;
+    font-weight: 600;
+    text-decoration: none;
+    transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
 /* NAVIGATION */
 #navbar {
     position: fixed;
@@ -530,6 +550,10 @@ section.visible {
 .project-links {
     display: flex;
     gap: 10px;
+}
+
+.project-links:empty {
+    display: none;
 }
 
 .btn-small {

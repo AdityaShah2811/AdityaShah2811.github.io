@@ -80,10 +80,10 @@ document.getElementById('projects-grid').innerHTML = portfolioData.projects.map(
             <div class="project-tags">
                 ${project.tech.map(tag => `<span class="tag">${tag}</span>`).join('')}
             </div>
-            <div class="project-links">
+            ${(project.github && project.github !== '#') || project.demo ? `<div class="project-links">
                 ${project.github && project.github !== '#' ? `<a href="${project.github}" class="btn-small btn-github" target="_blank">View Code</a>` : ''}
                 ${project.demo ? `<a href="${project.demo}" class="btn-small btn-demo" target="_blank">Live Demo</a>` : ''}
-            </div>
+            </div>` : ''}
         </div>
     </div>
 `).join('');
