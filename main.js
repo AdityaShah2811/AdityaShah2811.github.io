@@ -2,7 +2,16 @@
 document.getElementById('hero-name').textContent = portfolioData.personal.name;
 document.getElementById('hero-title').textContent = portfolioData.personal.title;
 document.getElementById('hero-tagline').textContent = portfolioData.personal.tagline;
-document.getElementById('profile-photo').src = portfolioData.personal.photo;
+const profilePhoto = document.getElementById('profile-photo');
+profilePhoto.src = portfolioData.personal.photo;
+profilePhoto.onerror = function() {
+    this.style.display = 'none';
+    const initials = portfolioData.personal.name.split(' ').map(n => n[0]).join('');
+    const fallback = document.createElement('div');
+    fallback.className = 'profile-photo profile-fallback';
+    fallback.textContent = initials;
+    this.parentNode.insertBefore(fallback, this);
+};
 document.getElementById('resume-download').href = portfolioData.personal.resumeURL;
 document.getElementById('resume-download-btn').href = portfolioData.personal.resumeURL;
 
