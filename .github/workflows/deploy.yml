@@ -60,7 +60,9 @@ jobs:
   deploy:
     name: Deploy to GitHub Pages
     needs: test
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    # Pull requests are tested but never published. Pushes to main and manual
+    # runs both deploy, so "Run workflow" doubles as a re-deploy button.
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
