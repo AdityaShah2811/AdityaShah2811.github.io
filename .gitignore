@@ -1,6 +1,20 @@
-.claude/
-.vscode/
-NEXT_STEPS.txt
-test.html
+# Operating system
 .DS_Store
 Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*~
+
+# Test tooling (the site itself needs no build)
+node_modules/
+tests/results.json
+
+# Local scratch and drafts
+NEXT_STEPS.txt
+test.html
+*.local
+*.log

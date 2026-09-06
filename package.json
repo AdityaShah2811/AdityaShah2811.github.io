@@ -1,0 +1,13 @@
+{
+  "name": "adityashah2811.github.io",
+  "version": "1.0.0",
+  "description": "Personal portfolio. The site itself has zero dependencies and no build step — this file exists only so CI can run the pre-flight tests in a headless browser.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node tests/run-ci.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.63.0"
+  }
+}
