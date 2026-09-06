@@ -1,13 +1,104 @@
+/* ===========================================================================
+   DESIGN TOKENS
+   Every colour the page uses is declared here. Components reference tokens
+   only, so switching themes is a single attribute flip on <html> — no
+   duplicated rules and no JavaScript re-rendering.
+
+   Brand fills (--primary, --accent, --success) deliberately do NOT change
+   between themes: they sit under white text on buttons and gradients, and
+   are already accessible in both. Only surfaces, text and lines flip.
+   =========================================================================== */
 :root {
+    color-scheme: light;
+
+    /* Brand — identical in both themes */
     --primary: #2563eb;
     --primary-dark: #1d4ed8;
     --secondary: #334155;
-    --background: #ffffff;
-    --background-alt: #f9fafb;
-    --text-primary: #1e293b;
-    --text-secondary: #64748b;
     --accent: #f59e0b;
     --success: #10b981;
+
+    /* Brand used as *text* on a page surface. Needs to lift on dark. */
+    --brand-text: #2563eb;
+
+    /* Surfaces */
+    --background: #ffffff;
+    --background-alt: #f9fafb;
+    --surface: #ffffff;        /* cards, panels */
+    --surface-inset: #e2e8f0;  /* progress-bar track */
+    --surface-tint: #eff6ff;   /* the resume band */
+    --tag-bg: #e0f2fe;
+
+    /* Text */
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --text-on-accent: #1e293b; /* dark text on amber — white fails AA */
+    --text-on-success: #052e21;
+    /* --text-secondary on the tinted resume band is only 4.37:1 — just under
+       AA. This is a touch darker so that band passes too. */
+    --text-on-tint: #4c5a70;
+
+    /* Lines, shadows, rings */
+    --border: #e2e8f0;
+    --dot-ring: #ffffff;
+    --focus-ring: #1d4ed8;
+    --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 10px 20px rgba(0, 0, 0, 0.15);
+    --shadow-nav: 0 2px 20px rgba(0, 0, 0, 0.3);
+
+    /* Fixed dark chrome — navbar, hero and footer stay dark in both themes */
+    --chrome-bg: rgba(30, 41, 59, 0.95);
+    --chrome-bg-solid: rgba(30, 41, 59, 0.98);
+    --hero-from: #1e293b;
+    --hero-to: #334155;
+    --footer-bg: #1e293b;
+
+    /* Notices */
+    --notice-bg: #fef3c7;
+    --notice-text: #78350f;
+}
+
+[data-theme="dark"] {
+    color-scheme: dark;
+
+    --brand-text: #93c5fd;
+
+    --background: #0f172a;
+    --background-alt: #111c31;
+    --surface: #1e293b;
+    --surface-inset: #334155;
+    --surface-tint: #15233f;
+    --tag-bg: #1e3a5f;
+
+    --text-primary: #e2e8f0;
+    --text-secondary: #94a3b8;
+    --text-on-tint: #94a3b8;
+
+    --border: #334155;
+    --dot-ring: #111c31;
+    --focus-ring: #93c5fd;
+    --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.45);
+    --shadow-md: 0 10px 20px rgba(0, 0, 0, 0.6);
+    --shadow-nav: 0 2px 20px rgba(0, 0, 0, 0.6);
+
+    --chrome-bg: rgba(11, 18, 32, 0.95);
+    --chrome-bg-solid: rgba(11, 18, 32, 0.98);
+    --hero-from: #0b1220;
+    --hero-to: #1e293b;
+    --footer-bg: #0b1220;
+
+    --notice-bg: #422006;
+    --notice-text: #fde68a;
+}
+
+/* Theme switching repaints ~100 elements at once. Without this, every card,
+   button and border runs its 0.3s colour transition simultaneously and the
+   flip visibly janks. main.js adds this class for one frame around the swap. */
+.theme-switching,
+.theme-switching *,
+.theme-switching *::before,
+.theme-switching *::after {
+    transition: none !important;
 }
 
 * {
@@ -18,6 +109,8 @@
 
 html {
     scroll-behavior: smooth;
+    /* Keeps section titles clear of the 60px fixed navbar when jumping to an anchor */
+    scroll-padding-top: 76px;
 }
 
 body {
@@ -54,11 +147,49 @@ section.visible {
     transform: translateY(0);
 }
 
+/* Without JS the reveal observer never runs, so never hide anything in the first place */
+.no-js section,
+.no-js .project-card {
+    opacity: 1;
+    transform: none;
+}
+
+.noscript-banner {
+    background: var(--notice-bg);
+    color: var(--notice-text);
+    border-bottom: 2px solid var(--accent);
+    padding: 14px 20px;
+    margin-top: 60px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.noscript-banner a {
+    color: var(--notice-text);
+}
+
 .section-title {
     font-size: 36px;
     text-align: center;
     margin-bottom: 50px;
     color: var(--text-primary);
+}
+
+/* KEYBOARD FOCUS (WCAG 2.4.7)
+   The stylesheet previously defined no focus styles at all, leaving the browser
+   default ring — which is close to invisible against the dark navbar, hero and
+   footer. Amber is used on those dark surfaces, brand blue everywhere else. */
+:focus-visible {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 2px;
+    border-radius: 3px;
+}
+
+#navbar :focus-visible,
+#hero :focus-visible,
+footer :focus-visible,
+.stat-card :focus-visible {
+    outline-color: #fbbf24;
 }
 
 /* SKIP LINK (accessibility) */
@@ -87,16 +218,16 @@ section.visible {
     top: 0;
     left: 0;
     right: 0;
-    background: rgba(30, 41, 59, 0.95);
+    background: var(--chrome-bg);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     z-index: 1000;
     padding: 0;
-    transition: box-shadow 0.3s ease;
+    transition: box-shadow 0.3s ease, background 0.3s ease;
 }
 
 #navbar.scrolled {
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--shadow-nav);
 }
 
 .nav-container {
@@ -193,9 +324,56 @@ section.visible {
     transform: rotate(-45deg);
 }
 
+/* THEME TOGGLE */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    padding: 0;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.9);
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.theme-toggle svg {
+    width: 18px;
+    height: 18px;
+    display: block;
+}
+
+/* Show the icon for the theme you'd switch *to* */
+.theme-toggle .icon-sun {
+    display: none;
+}
+
+[data-theme="dark"] .theme-toggle .icon-sun {
+    display: block;
+}
+
+[data-theme="dark"] .theme-toggle .icon-moon {
+    display: none;
+}
+
 /* HERO SECTION */
 #hero {
-    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    background: linear-gradient(135deg, var(--hero-from) 0%, var(--hero-to) 100%);
     color: white;
     text-align: center;
     padding: 160px 0 120px;
@@ -344,20 +522,20 @@ section.visible {
 }
 
 .quick-facts {
-    background: white;
+    background: var(--surface);
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-sm);
 }
 
 .quick-facts h3 {
     margin-bottom: 20px;
-    color: var(--primary);
+    color: var(--brand-text);
 }
 
 .fact-item {
     padding: 12px 0;
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 1px solid var(--border);
     display: flex;
     align-items: center;
     gap: 10px;
@@ -379,21 +557,21 @@ section.visible {
 }
 
 .skill-category {
-    background: white;
+    background: var(--surface);
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-sm);
     transition: all 0.3s ease;
 }
 
 .skill-category:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--shadow-md);
 }
 
 .skill-category h3 {
     margin-bottom: 20px;
-    color: var(--primary);
+    color: var(--brand-text);
     font-size: 20px;
 }
 
@@ -413,7 +591,9 @@ section.visible {
 
 .skill-badge {
     background: var(--accent);
-    color: white;
+    /* Dark text on amber: white here is only 2.15:1 and fails WCAG AA */
+    color: var(--text-on-accent);
+    font-weight: 600;
     padding: 2px 8px;
     border-radius: 10px;
     font-size: 12px;
@@ -426,7 +606,7 @@ section.visible {
 }
 
 .progress-bar-container {
-    background: #e2e8f0;
+    background: var(--surface-inset);
     height: 8px;
     border-radius: 10px;
     overflow: hidden;
@@ -452,10 +632,10 @@ section.visible {
 }
 
 .project-card {
-    background: white;
+    background: var(--surface);
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-sm);
     transition: all 0.3s ease;
     position: relative;
     opacity: 0;
@@ -470,7 +650,7 @@ section.visible {
 
 .project-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--shadow-md);
 }
 
 .project-image {
@@ -500,19 +680,22 @@ section.visible {
     top: 10px;
     right: 10px;
     background: var(--accent);
-    color: white;
+    /* Dark text on amber/green — white fails WCAG AA on both (2.15:1 and 2.56:1) */
+    color: var(--text-on-accent);
     padding: 5px 12px;
     border-radius: 15px;
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .project-status-badge.complete {
     background: var(--success);
+    color: var(--text-on-success);
 }
 
 .project-status-badge.placeholder {
-    background: var(--text-secondary);
+    background: var(--secondary);
+    color: white;
 }
 
 .project-content {
@@ -539,8 +722,8 @@ section.visible {
 }
 
 .tag {
-    background: #e0f2fe;
-    color: var(--primary);
+    background: var(--tag-bg);
+    color: var(--brand-text);
     padding: 4px 12px;
     border-radius: 15px;
     font-size: 12px;
@@ -598,7 +781,7 @@ section.visible {
     padding: 40px;
     border-radius: 10px;
     text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-sm);
 }
 
 .stat-icon {
@@ -646,16 +829,16 @@ section.visible {
 .timeline-item {
     position: relative;
     margin-bottom: 50px;
-    background: white;
+    background: var(--surface);
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-sm);
     transition: all 0.3s ease;
 }
 
 .timeline-item:hover {
     transform: translateX(10px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--shadow-md);
 }
 
 .timeline-item:before {
@@ -667,7 +850,7 @@ section.visible {
     height: 14px;
     border-radius: 50%;
     background: var(--accent);
-    border: 3px solid white;
+    border: 3px solid var(--dot-ring);
     box-shadow: 0 0 0 2px var(--primary);
 }
 
@@ -677,7 +860,7 @@ section.visible {
 }
 
 .timeline-company {
-    color: var(--primary);
+    color: var(--brand-text);
     font-weight: 600;
     margin-bottom: 5px;
 }
@@ -716,14 +899,14 @@ section.visible {
 .education-column h3 {
     font-size: 24px;
     margin-bottom: 30px;
-    color: var(--primary);
+    color: var(--brand-text);
 }
 
 .education-item {
-    background: white;
+    background: var(--surface);
     padding: 25px;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-sm);
     margin-bottom: 20px;
 }
 
@@ -733,7 +916,7 @@ section.visible {
 }
 
 .education-institution {
-    color: var(--primary);
+    color: var(--brand-text);
     font-weight: 600;
     margin-bottom: 5px;
 }
@@ -748,11 +931,11 @@ section.visible {
 }
 
 .certifications-list li {
-    background: white;
+    background: var(--surface);
     padding: 15px 20px;
     padding-left: 50px;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-sm);
     margin-bottom: 15px;
     position: relative;
 }
@@ -768,14 +951,14 @@ section.visible {
 
 /* RESUME SECTION */
 #resume {
-    background: #eff6ff;
+    background: var(--surface-tint);
     text-align: center;
 }
 
 .resume-content p {
     font-size: 18px;
     margin-bottom: 30px;
-    color: var(--text-secondary);
+    color: var(--text-on-tint);
 }
 
 .resume-btn {
@@ -798,7 +981,7 @@ section.visible {
 .resume-stats {
     margin-top: 30px;
     font-size: 16px;
-    color: var(--text-secondary);
+    color: var(--text-on-tint);
 }
 
 /* CONTACT SECTION */
@@ -845,8 +1028,8 @@ section.visible {
 }
 
 .contact-btn-secondary {
-    background: white;
-    color: var(--primary);
+    background: var(--surface);
+    color: var(--brand-text);
     border: 2px solid var(--primary);
 }
 
@@ -872,7 +1055,7 @@ section.visible {
 }
 
 .contact-detail a {
-    color: var(--primary);
+    color: var(--brand-text);
     text-decoration: none;
 }
 
@@ -882,7 +1065,9 @@ section.visible {
 
 /* FOOTER */
 footer {
-    background: var(--text-primary);
+    /* --footer-bg, not --text-primary: that token inverts in dark mode and
+       would turn the footer light. */
+    background: var(--footer-bg);
     color: white;
     padding: 40px 0;
     text-align: center;
@@ -909,6 +1094,7 @@ footer {
 
 #back-to-top:hover {
     background: var(--accent);
+    color: var(--text-on-accent);
     transform: translateY(-2px);
 }
 
@@ -952,7 +1138,7 @@ footer {
         top: 60px;
         left: 0;
         right: 0;
-        background: rgba(30, 41, 59, 0.98);
+        background: var(--chrome-bg-solid);
         flex-direction: column;
         padding: 20px;
         gap: 4px;
@@ -1022,5 +1208,45 @@ footer {
         width: 100%;
         max-width: 300px;
         justify-content: center;
+    }
+}
+
+/* REDUCED MOTION
+   Honours the OS "reduce motion" setting. Content still reveals — it just
+   appears instead of sliding, and nothing translates on hover. */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    section,
+    section.visible,
+    .project-card,
+    .project-card.animate-in {
+        opacity: 1;
+        transform: none;
+    }
+
+    .btn:hover,
+    .btn-primary:hover,
+    .btn-secondary:hover,
+    .contact-btn-primary:hover,
+    .contact-btn-secondary:hover,
+    .resume-btn:hover,
+    .social-icon:hover,
+    .skill-category:hover,
+    .project-card:hover,
+    .timeline-item:hover,
+    #back-to-top:hover {
+        transform: none;
     }
 }

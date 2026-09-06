@@ -7,7 +7,7 @@ const portfolioData = {
     name: "Aditya Pranav Shah",
     title: "Data Science Graduate Student | Python · SQL · Machine Learning",
     tagline: "Building scalable data pipelines and ML models that turn complex datasets into decisions that matter.",
-    photo: "./images/profile-placeholder.svg", // Replace with your real photo (profile.jpg)
+    photo: "./images/profile-photo.jpg", // Falls back to your initials if this file is missing
     location: "Boston, MA",
     email: "shah.aditya@northeastern.edu",
     // phone: "+1 (857) 234-7211", // Uncomment to display in contact section

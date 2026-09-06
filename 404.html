@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found | Aditya Shah</title>
+    <meta name="robots" content="noindex">
+    <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .code {
+            font-family: 'Poppins', sans-serif;
+            font-size: 96px;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: rgba(255, 255, 255, 0.85);
+            max-width: 480px;
+            margin: 0 auto 35px;
+        }
+
+        .actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+        a.btn {
+            padding: 12px 32px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        /* Selectors are a.btn-* so they outrank the `a.btn` border shorthand above */
+        a.btn-primary { background: #2563eb; color: white; }
+        a.btn-primary:hover { background: #1d4ed8; }
+        a.btn-secondary { background: transparent; color: white; border-color: white; }
+        a.btn-secondary:hover { background: white; color: #2563eb; }
+
+        @media (max-width: 767px) {
+            .code { font-size: 72px; }
+            .actions { flex-direction: column; align-items: center; }
+            a.btn { width: 100%; max-width: 300px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * { transition-duration: 0.01ms !important; }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="code">404</div>
+        <h1>This page doesn't exist</h1>
+        <p>The link may be outdated or mistyped. Everything lives on the main page — projects, experience, and how to get in touch.</p>
+        <div class="actions">
+            <a href="/" class="btn btn-primary">Back to Portfolio</a>
+            <a href="mailto:shah.aditya@northeastern.edu" class="btn btn-secondary">Email Me</a>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,10 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
     <meta charset="UTF-8">
+    <script>
+    // Runs before first paint so the correct palette is applied with no flash.
+    // Saved choice wins; otherwise follow the OS setting.
+    (function () {
+        var root = document.documentElement;
+        root.classList.remove('no-js');
+        var theme = 'light';
+        try {
+            theme = localStorage.getItem('portfolio-theme')
+                || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        } catch (e) { /* localStorage blocked — fall back to light */ }
+        root.setAttribute('data-theme', theme);
+    })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aditya Shah | Data Science & Analytics Portfolio</title>
-    <meta name="description" content="Aditya Pranav Shah — Data Science graduate student at Northeastern University with 2+ years building IoT data pipelines, ML models, and analytics systems. Proficient in Python, SQL, MongoDB, and Scikit-learn. Open to co-op and full-time roles.">
+    <meta name="description" content="Aditya Shah — Data Science grad student at Northeastern. 2+ years building IoT data pipelines and ML models in Python, SQL and MongoDB. Open to co-op.">
     <meta name="keywords" content="Aditya Shah, Aditya Pranav Shah, Data Science, Python, Machine Learning, SQL, MongoDB, Data Engineering, Data Analyst, Northeastern University, Portfolio, IoT, Data Pipelines, ETL, Scikit-learn, Pandas">
     <meta name="author" content="Aditya Pranav Shah">
     <meta name="robots" content="index, follow">
@@ -14,11 +28,14 @@
     <meta property="og:url" content="https://adityashah2811.github.io/">
     <meta property="og:title" content="Aditya Shah | Data Science & Analytics Portfolio">
     <meta property="og:description" content="Data Science graduate student at Northeastern University with 2+ years experience in IoT data pipelines, machine learning, and analytics. Open to co-op and full-time roles.">
-    <meta property="og:image" content="https://adityashah2811.github.io/images/profile-placeholder.svg">
+    <meta property="og:image" content="https://adityashah2811.github.io/images/og-card.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Aditya Pranav Shah — Data Science Graduate Student, Northeastern University">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Aditya Shah | Data Science Portfolio">
     <meta name="twitter:description" content="Data Science graduate student at Northeastern University — Python, SQL, ML, and data pipelines. Open to co-op and full-time roles.">
-    <meta name="twitter:image" content="https://adityashah2811.github.io/images/profile-placeholder.svg">
+    <meta name="twitter:image" content="https://adityashah2811.github.io/images/og-card.jpg">
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -57,28 +74,41 @@
 </head>
 <body>
 
+    <!-- Skip to content — first focusable element on the page -->
+    <a href="#main" class="skip-link">Skip to main content</a>
+
     <!-- NAVIGATION -->
     <nav id="navbar">
         <div class="container nav-container">
             <a href="#hero" class="nav-logo">Aditya Shah</a>
-            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
-                <span class="hamburger"></span>
-            </button>
-            <ul class="nav-links" id="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#education">Education</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+            <div class="nav-right">
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#education">Education</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark theme" title="Switch theme">
+                    <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                    <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                </button>
+                <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-controls="nav-links" aria-expanded="false">
+                    <span class="hamburger"></span>
+                </button>
+            </div>
         </div>
     </nav>
 
-    <!-- Skip to content -->
-    <a href="#about" class="skip-link">Skip to main content</a>
+    <noscript>
+        <div class="noscript-banner">
+            This portfolio renders its content with JavaScript. Please enable it, or
+            <a href="mailto:shah.aditya@northeastern.edu">email me</a> and I'll send my resume directly.
+        </div>
+    </noscript>
 
-    <main>
+    <main id="main">
 
     <!-- HERO SECTION -->
     <section id="hero">
@@ -102,7 +132,9 @@
             <h2 class="section-title">About Me</h2>
             <div class="about-content">
                 <div class="about-bio">
-                    <p id="about-bio"></p>
+                    <!-- A div, not a <p>: main.js injects <p> elements here and
+                         paragraphs cannot nest. -->
+                    <div id="about-bio"></div>
                 </div>
                 <div class="quick-facts">
                     <h3>Quick Facts</h3>
@@ -182,7 +214,7 @@
                 </div>
             </div>
             <div class="github-profile-btn">
-                <a href="#" id="github-profile-link" class="btn btn-primary" target="_blank">View Full Profile</a>
+                <a href="#" id="github-profile-link" class="btn btn-primary" target="_blank" rel="noopener">View Full Profile</a>
             </div>
         </div>
     </section>
@@ -246,11 +278,11 @@
                 </div>
                 <div class="contact-detail">
                     <span role="img" aria-hidden="true">💼</span>
-                    <a href="#" id="contact-linkedin" target="_blank">LinkedIn</a>
+                    <a href="#" id="contact-linkedin" target="_blank" rel="noopener">LinkedIn</a>
                 </div>
                 <div class="contact-detail">
                     <span role="img" aria-hidden="true">💻</span>
-                    <a href="#" id="contact-github" target="_blank">GitHub</a>
+                    <a href="#" id="contact-github" target="_blank" rel="noopener">GitHub</a>
                 </div>
                 <div class="contact-detail">
                     <span role="img" aria-hidden="true">✉️</span>
@@ -269,7 +301,7 @@
                 <div class="social-icons" id="footer-social"></div>
                 <p id="footer-copyright" style="margin-top: 20px;"></p>
             </div>
-            <a href="#hero" id="back-to-top">↑ Back to Top</a>
+            <a href="#hero" id="back-to-top" class="hidden">↑ Back to Top</a>
         </div>
     </footer>
 
